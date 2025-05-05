@@ -1,38 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Student Info Lookup</title>
+  <meta charset="UTF-8">
+  <title>Digilocker Activation</title>
   <style>
-    body { font-family: Arial; padding: 20px; }
-    input { padding: 8px; width: 200px; }
-    button { padding: 8px 12px; }
-    .result { margin-top: 20px; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background: #f4f4f4;
+      color: #333;
+    }
+    h1 {
+      color: #0055a5;
+    }
+    .info-box {
+      background: #fff;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      border-left: 5px solid #0055a5;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .search-box input {
+      padding: 0.5rem;
+      font-size: 1rem;
+      width: 200px;
+    }
+    .search-box button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      margin-left: 0.5rem;
+    }
+    .result {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #e7f3ff;
+      border: 1px solid #c3dfff;
+    }
+    .not-found {
+      color: red;
+      margin-top: 1rem;
+    }
   </style>
 </head>
 <body>
-  <h2>Student Lookup</h2>
-  <p>Enter your Roll Number:</p>
-  <input type="text" id="rollInput" placeholder="Enter roll number" />
-  <button onclick="lookup()">Search</button>
-  
-  <div class="result" id="result"></div>
+
+  <h1>DAV Public School, Barari, Bhagalpur, Student Digilocker Activation Information Portal</h1>
+
+  <div class="info-box">
+    <p><strong>Academic Session:</strong> 2024–2025</p>
+    <p><strong>Available Classes:</strong> X, XII</p>
+    <p><strong>Instruction:</strong> Enter your roll number to get your details.</p>
+  </div>
+
+  <div class="search-box">
+    <input type="text" id="rollInput" placeholder="Enter Roll Number">
+    <button onclick="searchStudent()">Search</button>
+  </div>
+
+  <div id="result" class="result" style="display:none;"></div>
+  <div id="notFound" class="not-found" style="display:none;">Student not found. Please check the roll number.</div>
 
   <script src="data.js"></script>
   <script>
-    function lookup() {
+    function searchStudent() {
       const roll = document.getElementById('rollInput').value.trim();
+      const resultBox = document.getElementById('result');
+      const notFoundBox = document.getElementById('notFound');
+
       const student = students.find(s => s.Roll === roll);
 
-      const resultDiv = document.getElementById('result');
       if (student) {
-        resultDiv.innerHTML = `
-          <p><strong>Name:</strong> ${student.Name}</p>
-          <p><strong>Class:</strong> ${student.Class}</p>
-          <p><strong>Session:</strong> ${student.Session}</p>
-          <p><strong>PIN:</strong> ${student.PIN}</p>
+        resultBox.style.display = 'block';
+        notFoundBox.style.display = 'none';
+        resultBox.innerHTML = `
+          <strong>Name:</strong> ${student.Name}<br>
+          <strong>Roll Number:</strong> ${student.Roll}<br>
+          <strong>Class:</strong> ${student.Class}<br>
+          <strong>Session:</strong> ${student.Session}<br>
+          <strong>PIN:</strong> ${student.PIN}
         `;
       } else {
-        resultDiv.innerHTML = "<p style='color:red;'>No student found with that roll number.</p>";
+        resultBox.style.display = 'none';
+        notFoundBox.style.display = 'block';
       }
     }
   </script>
