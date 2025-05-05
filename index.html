@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Info Lookup</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input { padding: 8px; width: 200px; }
+    button { padding: 8px 12px; }
+    .result { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h2>Student Lookup</h2>
+  <p>Enter your Roll Number:</p>
+  <input type="text" id="rollInput" placeholder="Enter roll number" />
+  <button onclick="lookup()">Search</button>
+  
+  <div class="result" id="result"></div>
+
+  <script src="data.js"></script>
+  <script>
+    function lookup() {
+      const roll = document.getElementById('rollInput').value.trim();
+      const student = students.find(s => s.Roll === roll);
+
+      const resultDiv = document.getElementById('result');
+      if (student) {
+        resultDiv.innerHTML = `
+          <p><strong>Name:</strong> ${student.Name}</p>
+          <p><strong>Class:</strong> ${student.Class}</p>
+          <p><strong>Session:</strong> ${student.Session}</p>
+          <p><strong>PIN:</strong> ${student.PIN}</p>
+        `;
+      } else {
+        resultDiv.innerHTML = "<p style='color:red;'>No student found with that roll number.</p>";
+      }
+    }
+  </script>
+</body>
+</html>
