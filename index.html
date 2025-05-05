@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Digilocker Activation</title>
+  <title>Student Info Lookup</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -20,15 +20,14 @@
       border-left: 5px solid #0055a5;
       box-shadow: 0 0 5px rgba(0,0,0,0.1);
     }
-    .search-box input {
+    .search-box input, .search-box select {
       padding: 0.5rem;
       font-size: 1rem;
-      width: 200px;
+      margin-right: 0.5rem;
     }
     .search-box button {
       padding: 0.5rem 1rem;
       font-size: 1rem;
-      margin-left: 0.5rem;
     }
     .result {
       margin-top: 1rem;
@@ -44,30 +43,37 @@
 </head>
 <body>
 
-  <h1>DAV Public School, Barari, Bhagalpur, Student Digilocker Activation Information Portal</h1>
+  <h1>Student Information Portal</h1>
 
   <div class="info-box">
-    <p><strong>Academic Session:</strong> 2024–2025</p>
+    <p><strong>Only ment for:</strong>D.A.V. Public School, Barari, Bhagalpur</p>
+    <p><strong>Academic Sessions Available:</strong> 2024–2025</p>
     <p><strong>Available Classes:</strong> X, XII</p>
-    <p><strong>Instruction:</strong> Enter your roll number to get your details.</p>
+    <p><strong>Instruction:</strong> Select your session and enter your roll number to retrieve your details.</p>
   </div>
 
   <div class="search-box">
-    <input type="text" id="rollInput" placeholder="Enter Board Roll Number">
+    <label for="sessionSelect">Session:</label>
+    <select id="sessionSelect">
+      <option value="2024-25">2024-25</option>
+    </select>
+
+    <input type="text" id="rollInput" placeholder="Enter Roll Number">
     <button onclick="searchStudent()">Search</button>
   </div>
 
   <div id="result" class="result" style="display:none;"></div>
-  <div id="notFound" class="not-found" style="display:none;">Student not found. Please check the roll number.</div>
+  <div id="notFound" class="not-found" style="display:none;">Student not found. Please check the session and roll number.</div>
 
   <script src="data.js"></script>
   <script>
     function searchStudent() {
+      const session = document.getElementById('sessionSelect').value;
       const roll = document.getElementById('rollInput').value.trim();
       const resultBox = document.getElementById('result');
       const notFoundBox = document.getElementById('notFound');
 
-      const student = students.find(s => s.Roll === roll);
+      const student = students.find(s => s.Session === session && s.Roll === roll);
 
       if (student) {
         resultBox.style.display = 'block';
